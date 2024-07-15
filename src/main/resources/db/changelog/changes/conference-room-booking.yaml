@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Ashish
+      preConditions:
+        - not:
+            tableExists:
+              tableName: conference_room_booking
+      changes:
+        - createTable:
+            tableName: conference_room_booking
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: pk_conference_room_booking
+              - column:
+                  name: room_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: attendees
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_room_released
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_removed
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: conference_room_booking
+            baseColumnNames: room_id
+            constraintName: fk_conference_room_booking_room_id
+            referencedTableName: conference_room
+            referencedColumnNames: id
